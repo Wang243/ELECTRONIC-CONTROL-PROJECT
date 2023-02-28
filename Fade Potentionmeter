@@ -1,0 +1,46 @@
+int ledR = 9;         // the PWM pin the LED is attached to
+int ledB = 10;
+int ledG = 11;
+float AI = A3;
+float x;
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // declare pin 9 to be an output:
+  pinMode(ledR, OUTPUT);
+  pinMode(ledB, OUTPUT);
+  pinMode(ledG, OUTPUT);
+  Serial.begin(9600);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  AI = analogRead(A3);
+  // set the brightness of pin 9:
+if(AI<= 50){  
+  analogWrite(ledR, 0);
+  analogWrite(ledB, 0);
+  analogWrite(ledG, 0);
+
+}
+else if (AI>=900){
+  analogWrite(ledR, 255);
+  analogWrite(ledB, 255);
+  analogWrite(ledG, 255);  
+}
+else{
+  analogWrite(ledR, AI);
+  analogWrite(ledB, AI);
+  analogWrite(ledG, AI);  
+}
+  
+// wait for 30 milliseconds to see the dimming effect
+  delay(100);
+  x=(AI/1023)*5; 
+  Serial.print("AI voltage = ");
+  Serial.print(x);
+  delay(100);
+  Serial.print("\t");
+  Serial.print("AI Analog value= ");
+  Serial.println(AI);
+}
